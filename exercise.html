@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(function(){
+	$.ajax( {
+		url: "http://140.134.26.71:58080/web-prog/Hotels",
+		type: "get",
+		dataType: "json",
+		success: function(data) {
+			//處理資料
+			var temp = 0;
+			var items = data.Infos.Info;
+			for(var i = 0; i< items.length; i++){
+				var name = items[i].Name;
+				var imgURL = items[i].Picture1;
+				var webURL = items[i].Website;
+				if(i%6==0){
+					temp = i;
+					$("table").append('<tr id="'+temp+'"></tr>');
+					$("#"+temp).append('<td><div>'+items[i].Name+'</div><div><a href = "'+webURL+'" target="_blank"><img src="'+imgURL+
+					'" height="200" width="200" alt="未提供圖片"></a></div></td>');
+				}
+				else{
+					$("#"+temp).append('<td><div>'+items[i].Name+'</div><div><a href = "'+webURL+'" target="_blank"><img src="'+imgURL+
+					'" height="200" width="200" alt="未提供圖片"></a></div></td>');	
+				}
+			}
+		},
+		error: function() {
+			//處理錯誤
+		}
+	});
+});
+</script>
+</head>
+<body>
+
+<div>
+<table>
+</table>
+</div> 
+
+</body>
+</html>
